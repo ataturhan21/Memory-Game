@@ -11,6 +11,7 @@ public class MemoryGame {
     private JLabel previousFlippedCard; // Will store reference to JLabel that was flipped first.
     private int iconsFlipped; // At a time, user is allowed to flip 2 icons at max.
     private int pairsFound; // To keep track of how many pairs found. If 6 found, user wins.
+    private long roundId; // Invalidates delayed card resolutions after a restart.
 
     public MemoryGame() {
         turns = 0;
@@ -40,6 +41,10 @@ public class MemoryGame {
 
     public int getTurns() {
         return turns;
+    }
+
+    public long getRoundId() {
+        return roundId;
     }
 
     public CustomIcon getCustomIcon(int index) {
@@ -87,6 +92,7 @@ public class MemoryGame {
     }
 
     public void resetGame() {
+        roundId++;
         turns = 0;
         previousFlippedCard = null;
         iconsFlipped = 0;

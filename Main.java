@@ -13,12 +13,17 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.Box;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
     public Main() {}
 
-    public static void main (String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Main::createAndShowGui);
+    }
+
+    private static void createAndShowGui() {
         MemoryGame game = new MemoryGame();
         GameActions actions = new GameActions();
 
