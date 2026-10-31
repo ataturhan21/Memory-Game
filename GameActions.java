@@ -44,14 +44,19 @@ public class GameActions {
                 // try to match it.
                 else if (game.getPreviousFlippedCard() != null) {
                     currentClickedCard.setIcon(currentFlippedIcon.getFlippedIconImage());
+                    currentFlippedIcon.setIsFlipped(true);
                     game.incrementIconsFlipped();
                     JLabel previousCard = game.getPreviousFlippedCard();
                     CustomIcon previousFlippedIcon = (CustomIcon) previousCard.getClientProperty("customIcon");
+                    long roundId = game.getRoundId();
                     // Show the flipped card for one second, and then try to match it
                     Timer timer = new Timer(500, new ActionListener() {
                         // This action is performed after the timer has been expired
                         @Override
                         public void actionPerformed(ActionEvent action_listener) {
+                            if (roundId != game.getRoundId()) {
+                                return;
+                            }
                             // If the flipped card matches the previously flipped card
                             // match them, and check for completion of the game.
                             if (previousFlippedIcon.getFlippedIconPath().equals(currentFlippedIcon.getFlippedIconPath())) {
@@ -72,6 +77,7 @@ public class GameActions {
                                 game.incrementTurns();
                                 turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
                                 previousFlippedIcon.setIsFlipped(false);
+                                currentFlippedIcon.setIsFlipped(false);
                                 currentClickedCard.setIcon(currentFlippedIcon.getDefaultIconImage());
                                 previousCard.setIcon(previousFlippedIcon.getDefaultIconImage());
                                 game.resetIconsFlipped();

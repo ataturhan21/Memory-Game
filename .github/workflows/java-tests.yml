@@ -1,0 +1,24 @@
+name: Memory game tests
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  game:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Compile and run headless regression checks
+        run: |
+          javac -d /tmp/memory-game-tests *.java tests/*.java
+          java -Djava.awt.headless=true -cp /tmp/memory-game-tests GameActionsTest
