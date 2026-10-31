@@ -1,19 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-if ls *.class 1> /dev/null 2>&1; then
-    echo "Cleaning directory..."
-    rm *.class
-    export DISPLAY=:1.0
-    (pkill java || true)
-    echo "Compiling..."
-    javac Main.java
-    echo "Executing Program..."
-    java -Dsun.java2d.xrender=false Main
-else
-    export DISPLAY=:1.0
-    (pkill java || true)
-    echo "Compiling..."
-    javac Main.java
-    echo "Executing Program..."
-    java -Dsun.java2d.xrender=false Main
-fi
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+
+printf 'Compiling...\n'
+javac Main.java
+printf 'Starting Memory Game...\n'
+exec java -Dsun.java2d.xrender=false Main "$@"
