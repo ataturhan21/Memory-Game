@@ -75,10 +75,6 @@ public class MemoryGame {
         turns = turns + 1;
     }
 
-    public void resetTurns() {
-        turns = 0;
-    }
-
     public void setPreviousFlippedCard(JLabel previousFlippedCard) {
         this.previousFlippedCard = previousFlippedCard;
     }
@@ -93,10 +89,6 @@ public class MemoryGame {
 
     public void incrementPairsFound() {
         pairsFound = pairsFound + 1;
-    }
-
-    public void resetPairsFound() {
-        pairsFound = 0;
     }
 
     public void resetGame() {
@@ -115,6 +107,4 @@ public class MemoryGame {
             icons[i].setIsFlipped(false);
         }
     }
-
-
 }

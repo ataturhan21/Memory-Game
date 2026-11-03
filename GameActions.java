@@ -14,8 +14,6 @@ import java.awt.event.ActionEvent;
 
 public class GameActions {
 
-    public GameActions() {}
-
     public void addMouseListener(JLabel label, MemoryGame game, JLabel turnsLabel) {
         label.addMouseListener(new MouseAdapter() {
             @Override

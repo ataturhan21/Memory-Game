@@ -17,8 +17,6 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 
-    public Main() {}
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::createAndShowGui);
     }
@@ -96,7 +94,6 @@ public class Main {
         mainPanel.add(gridPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        frame.add(mainPanel);
         frame.setContentPane(mainPanel);
         frame.pack();
         frame.setVisible(true);
