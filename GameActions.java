@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,14 +14,12 @@ import java.awt.event.ActionEvent;
 
 public class GameActions {
 
-    public GameActions() {}
-
     public void addMouseListener(JLabel label, MemoryGame game, JLabel turnsLabel) {
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // If the player has used up all turns, do nothing
-                if (game.getTurns() >= 15) {
+                if (game.getTurns() >= MemoryGame.MAX_TURNS) {
                     return;
                 }
                 // Only two cards can be flipped in one turn
@@ -49,7 +48,7 @@ public class GameActions {
                     JLabel previousCard = game.getPreviousFlippedCard();
                     CustomIcon previousFlippedIcon = (CustomIcon) previousCard.getClientProperty("customIcon");
                     long roundId = game.getRoundId();
-                    // Show the flipped card for one second, and then try to match it
+                    // Show the flipped card for half a second (500 ms), and then try to match it
                     Timer timer = new Timer(500, new ActionListener() {
                         // This action is performed after the timer has been expired
                         @Override
@@ -64,18 +63,18 @@ public class GameActions {
                                 currentFlippedIcon.setIsDone(true);
                                 game.incrementPairsFound();
                                 game.incrementTurns();
-                                turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
+                                turnsLabel.setText(game.getTurnsText());
                                 game.resetIconsFlipped();
                                 game.setPreviousFlippedCard(null);
-                                if (game.getPairsFound() == 6) {
-                                    JOptionPane.showMessageDialog(null, "Congratulations! You won!");
+                                if (game.getPairsFound() == MemoryGame.PAIR_COUNT) {
+                                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(currentClickedCard), "Congratulations! You won!");
                                     return;
                                 }
                             }
                             // Else, flip back both cards
                             else {
                                 game.incrementTurns();
-                                turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
+                                turnsLabel.setText(game.getTurnsText());
                                 previousFlippedIcon.setIsFlipped(false);
                                 currentFlippedIcon.setIsFlipped(false);
                                 currentClickedCard.setIcon(currentFlippedIcon.getDefaultIconImage());
@@ -83,9 +82,9 @@ public class GameActions {
                                 game.resetIconsFlipped();
                                 game.setPreviousFlippedCard(null);
                             }
-                            // In either case, if there have been 15 turns, end the game.
-                            if (game.getTurns() == 15) {
-                                JOptionPane.showMessageDialog(null, "Maximum turns reached! Game over!");
+                            // In either case, if the turn limit has been reached, end the game.
+                            if (game.getTurns() == MemoryGame.MAX_TURNS) {
+                                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(currentClickedCard), "Maximum turns reached! Game over!");
                                 return;
                             }
                         }
@@ -103,7 +102,7 @@ public class GameActions {
             @Override
             public void actionPerformed(ActionEvent e) {
                 game.resetGame();
-                turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
+                turnsLabel.setText(game.getTurnsText());
                 Component[] components = gridPanel.getComponents();
                 int counter = 0;
                 for (Component component : components) {
@@ -113,7 +112,7 @@ public class GameActions {
                         counter = counter + 1;
                     }
                 }
-                JOptionPane.showMessageDialog(null, "New game started!");
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(newGameButton), "New game started!");
             }
         });
         

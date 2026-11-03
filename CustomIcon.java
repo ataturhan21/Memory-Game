@@ -3,6 +3,11 @@ import javax.swing.ImageIcon;
 
 public class CustomIcon {
 
+    private static final String DEFAULT_ICON_PATH = "images/back_of_card.jpg";
+    private static final int ICON_SIZE = 140;
+    // The card back is identical for every card, so it is loaded and scaled once.
+    private static final ImageIcon DEFAULT_ICON_IMAGE = loadScaled(DEFAULT_ICON_PATH);
+
     private String defaultIconPath; // Path to the default image icon
     private String flippedIconPath; // Path to the flipped image icon
     private Boolean isDone; // Variable to track whether the icon and its corresponding image icon has been found or not
@@ -11,20 +16,18 @@ public class CustomIcon {
     private ImageIcon flippedIconImage; // Variable to store image of the flipped icon.
 
     public CustomIcon(String flippedIconPath) {
-        this.defaultIconPath = "images/back_of_card.jpg";
+        this.defaultIconPath = DEFAULT_ICON_PATH;
         this.flippedIconPath = flippedIconPath;
         this.isDone = false;
         this.isFlipped = false;
 
-        this.defaultIconImage = new ImageIcon(this.defaultIconPath);
-        Image oldDefaultIconImage = this.defaultIconImage.getImage();
-        Image updatedDefaultIconImage = oldDefaultIconImage.getScaledInstance(140, 140, Image.SCALE_SMOOTH);
-        this.defaultIconImage = new ImageIcon(updatedDefaultIconImage);
+        this.defaultIconImage = DEFAULT_ICON_IMAGE;
+        this.flippedIconImage = loadScaled(this.flippedIconPath);
+    }
 
-        this.flippedIconImage = new ImageIcon(this.flippedIconPath);
-        Image oldFlippedIconImage = this.flippedIconImage.getImage();
-        Image updatedFlippedIconImage = oldFlippedIconImage.getScaledInstance(140, 140, Image.SCALE_SMOOTH);
-        this.flippedIconImage = new ImageIcon(updatedFlippedIconImage);
+    private static ImageIcon loadScaled(String path) {
+        Image original = new ImageIcon(path).getImage();
+        return new ImageIcon(original.getScaledInstance(ICON_SIZE, ICON_SIZE, Image.SCALE_SMOOTH));
     }
 
     public String getDefaultIconPath() {
