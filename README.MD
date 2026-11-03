@@ -20,6 +20,8 @@ cd Memory-Game
 bash script.sh
 ```
 
+The script is executable, so `./script.sh` works as well.
+
 The launcher compiles the sources and starts the game from the correct directory so the images can be loaded. It preserves your display configuration and does not stop other Java applications.
 
 On Windows, or without Bash, run these commands from the repository root:
@@ -30,6 +32,17 @@ java -Dsun.java2d.xrender=false Main
 ```
 
 Keep the `images/` directory beside the source files. If `javac` is missing, install a JDK rather than a runtime-only Java installation.
+
+## Run the tests
+
+The regression checks for card matching and restarts run without a display. From the repository root:
+
+```bash
+javac -d out *.java tests/*.java
+java -Djava.awt.headless=true -cp out GameActionsTest
+```
+
+A successful run prints a line starting with `PASS:`. The same checks run in GitHub Actions on every push and pull request.
 
 ## Play
 
@@ -46,6 +59,7 @@ Keep the `images/` directory beside the source files. If `javac` is missing, ins
 | [MemoryGame.java](MemoryGame.java) | Board state, turn count, and shuffling |
 | [GameActions.java](GameActions.java) | Click handling, pair checks, and restart actions |
 | [CustomIcon.java](CustomIcon.java) | Card images and per-card state |
+| [tests/GameActionsTest.java](tests/GameActionsTest.java) | Headless regression checks for matching, mismatches and restarts |
 
 ## License
 
