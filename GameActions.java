@@ -49,7 +49,7 @@ public class GameActions {
                     JLabel previousCard = game.getPreviousFlippedCard();
                     CustomIcon previousFlippedIcon = (CustomIcon) previousCard.getClientProperty("customIcon");
                     long roundId = game.getRoundId();
-                    // Show the flipped card for one second, and then try to match it
+                    // Show the flipped card for half a second (500 ms), and then try to match it
                     Timer timer = new Timer(500, new ActionListener() {
                         // This action is performed after the timer has been expired
                         @Override

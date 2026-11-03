@@ -10,7 +10,7 @@ public class MemoryGame {
     public static final int PAIR_COUNT = 6; // Pairs on the board; finding all of them wins.
     public static final int CARD_COUNT = PAIR_COUNT * 2; // Cards on the board.
 
-    private int turns; // To store how many turns a user has taken. Total allowed are 10.
+    private int turns; // To store how many turns a user has taken. Total allowed is MAX_TURNS.
     private CustomIcon[] icons; // Array of CustomIcon objects.
     private JLabel previousFlippedCard; // Will store reference to JLabel that was flipped first.
     private int iconsFlipped; // At a time, user is allowed to flip 2 icons at max.
