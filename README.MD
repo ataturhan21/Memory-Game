@@ -1,5 +1,7 @@
 # Memory Game in Java Swing and AWT
 
+[![Memory game tests](https://github.com/ataturhan21/Memory-Game/actions/workflows/java-tests.yml/badge.svg)](https://github.com/ataturhan21/Memory-Game/actions/workflows/java-tests.yml)
+
 A desktop card-matching game built with Java Swing and AWT. Match 6 pairs on a 12-card board within 15 turns, or start a new shuffled game.
 
 ![Memory Game Screenshot](screenshot.png)
