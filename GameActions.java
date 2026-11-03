@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -68,7 +69,7 @@ public class GameActions {
                                 game.resetIconsFlipped();
                                 game.setPreviousFlippedCard(null);
                                 if (game.getPairsFound() == MemoryGame.PAIR_COUNT) {
-                                    JOptionPane.showMessageDialog(null, "Congratulations! You won!");
+                                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(currentClickedCard), "Congratulations! You won!");
                                     return;
                                 }
                             }
@@ -85,7 +86,7 @@ public class GameActions {
                             }
                             // In either case, if the turn limit has been reached, end the game.
                             if (game.getTurns() == MemoryGame.MAX_TURNS) {
-                                JOptionPane.showMessageDialog(null, "Maximum turns reached! Game over!");
+                                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(currentClickedCard), "Maximum turns reached! Game over!");
                                 return;
                             }
                         }
@@ -113,7 +114,7 @@ public class GameActions {
                         counter = counter + 1;
                     }
                 }
-                JOptionPane.showMessageDialog(null, "New game started!");
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(newGameButton), "New game started!");
             }
         });
         
