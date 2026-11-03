@@ -6,6 +6,10 @@ import java.util.List;
 
 public class MemoryGame {
 
+    public static final int MAX_TURNS = 15; // Turns allowed before the game is over.
+    public static final int PAIR_COUNT = 6; // Pairs on the board; finding all of them wins.
+    public static final int CARD_COUNT = PAIR_COUNT * 2; // Cards on the board.
+
     private int turns; // To store how many turns a user has taken. Total allowed are 10.
     private CustomIcon[] icons; // Array of CustomIcon objects.
     private JLabel previousFlippedCard; // Will store reference to JLabel that was flipped first.
@@ -19,7 +23,7 @@ public class MemoryGame {
         pairsFound = 0;
         previousFlippedCard = null;
 
-        icons = new CustomIcon[12];
+        icons = new CustomIcon[CARD_COUNT];
         String[] flowerLocations = {
             "images/flower1.jpg",
             "images/flower2.jpg",
@@ -28,8 +32,8 @@ public class MemoryGame {
             "images/flower5.jpg",
             "images/flower6.jpg"
         };
-        for (int i = 0; i < 12; i++) {
-            String currentFlowerLocation = flowerLocations[i % 6];
+        for (int i = 0; i < CARD_COUNT; i++) {
+            String currentFlowerLocation = flowerLocations[i % PAIR_COUNT];
             CustomIcon icon = new CustomIcon(currentFlowerLocation);
             icons[i] = icon;
         }
@@ -41,6 +45,10 @@ public class MemoryGame {
 
     public int getTurns() {
         return turns;
+    }
+
+    public String getTurnsText() {
+        return "Turns: " + turns + "/" + MAX_TURNS;
     }
 
     public long getRoundId() {
@@ -102,7 +110,7 @@ public class MemoryGame {
         Collections.shuffle(iconsList);
         iconsList.toArray(icons);
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < CARD_COUNT; i++) {
             icons[i].setIsDone(false);
             icons[i].setIsFlipped(false);
         }

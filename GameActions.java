@@ -20,7 +20,7 @@ public class GameActions {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // If the player has used up all turns, do nothing
-                if (game.getTurns() >= 15) {
+                if (game.getTurns() >= MemoryGame.MAX_TURNS) {
                     return;
                 }
                 // Only two cards can be flipped in one turn
@@ -64,10 +64,10 @@ public class GameActions {
                                 currentFlippedIcon.setIsDone(true);
                                 game.incrementPairsFound();
                                 game.incrementTurns();
-                                turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
+                                turnsLabel.setText(game.getTurnsText());
                                 game.resetIconsFlipped();
                                 game.setPreviousFlippedCard(null);
-                                if (game.getPairsFound() == 6) {
+                                if (game.getPairsFound() == MemoryGame.PAIR_COUNT) {
                                     JOptionPane.showMessageDialog(null, "Congratulations! You won!");
                                     return;
                                 }
@@ -75,7 +75,7 @@ public class GameActions {
                             // Else, flip back both cards
                             else {
                                 game.incrementTurns();
-                                turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
+                                turnsLabel.setText(game.getTurnsText());
                                 previousFlippedIcon.setIsFlipped(false);
                                 currentFlippedIcon.setIsFlipped(false);
                                 currentClickedCard.setIcon(currentFlippedIcon.getDefaultIconImage());
@@ -83,8 +83,8 @@ public class GameActions {
                                 game.resetIconsFlipped();
                                 game.setPreviousFlippedCard(null);
                             }
-                            // In either case, if there have been 15 turns, end the game.
-                            if (game.getTurns() == 15) {
+                            // In either case, if the turn limit has been reached, end the game.
+                            if (game.getTurns() == MemoryGame.MAX_TURNS) {
                                 JOptionPane.showMessageDialog(null, "Maximum turns reached! Game over!");
                                 return;
                             }
@@ -103,7 +103,7 @@ public class GameActions {
             @Override
             public void actionPerformed(ActionEvent e) {
                 game.resetGame();
-                turnsLabel.setText("Turns: " + String.valueOf(game.getTurns()) + "/15");
+                turnsLabel.setText(game.getTurnsText());
                 Component[] components = gridPanel.getComponents();
                 int counter = 0;
                 for (Component component : components) {

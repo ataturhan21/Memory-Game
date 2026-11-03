@@ -71,7 +71,7 @@ public class Main {
         turnsPanel.setPreferredSize(new Dimension(turnsPanel.getPreferredSize().width, -110));
         turnsPanel.setBackground(Color.BLACK);
 
-        JLabel turnsLabel = new JLabel("Turns: " + String.valueOf(game.getTurns()) + "/15");
+        JLabel turnsLabel = new JLabel(game.getTurnsText());
         turnsLabel.setForeground(Color.decode("#fc9200"));
         turnsLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 
@@ -84,7 +84,7 @@ public class Main {
         gridPanel.setPreferredSize(new Dimension(gridPanel.getPreferredSize().width, 280));
         gridPanel.setBackground(Color.BLACK);
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < MemoryGame.CARD_COUNT; i++) {
             JLabel label = new JLabel(game.getCustomIcon(i).getDefaultIconImage());
             label.putClientProperty("customIcon", game.getCustomIcon(i));
             gridPanel.add(label);
