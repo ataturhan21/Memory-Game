@@ -61,6 +61,6 @@ A successful run prints a line starting with `PASS:`. The same checks run in Git
 | [CustomIcon.java](CustomIcon.java) | Card images and per-card state |
 | [tests/GameActionsTest.java](tests/GameActionsTest.java) | Headless regression checks for matching, mismatches and restarts |
 
-## License
+## Copyright
 
-See [LICENSE](LICENSE).
+© Ata Turhan. All rights reserved. This repository has no open-source license: its code may not be copied, modified or redistributed.
